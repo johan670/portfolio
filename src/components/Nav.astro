@@ -12,16 +12,12 @@ function isActive(href: string) {
 }
 ---
 
-<header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100">
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-zinc-200">
   <nav class="flex items-center justify-between px-6 py-4 md:px-10 lg:px-16 max-w-screen-xl mx-auto">
-    <a
-      href="/"
-      class="text-sm font-medium text-zinc-900 hover:text-zinc-500 transition-colors duration-200"
-    >
-      Your Name
+    <a href="/" class="text-sm font-medium text-zinc-900 hover:text-zinc-400 transition-colors duration-200">
+      Johan Pihl
     </a>
-
-    <ul class="flex items-center gap-7">
+    <ul class="flex items-center gap-8">
       {links.map(link => (
         <li>
           <a
@@ -33,18 +29,10 @@ function isActive(href: string) {
                 : 'text-zinc-400 hover:text-zinc-900',
             ]}
           >
-            {link.label}
+            {link.href === '/work' ? 'Work' : 'About'}
           </a>
         </li>
       ))}
-      <li>
-        <a
-          href="mailto:hello@example.com"
-          class="text-sm text-zinc-400 hover:text-zinc-900 transition-colors duration-200"
-        >
-          Contact ↗
-        </a>
-      </li>
     </ul>
   </nav>
 </header>

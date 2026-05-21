@@ -4,7 +4,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['Helvetica Now Display', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+      },
+      letterSpacing: {
+        display: '-0.03em',
       },
       typography: {
         zinc: {
