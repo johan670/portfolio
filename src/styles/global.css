@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Semantic color tokens */
+    --color-bg:            255 255 255;   /* white */
+    --color-surface:       250 250 250;   /* zinc-50 */
+    --color-border:        244 244 245;   /* zinc-100 */
+    --color-border-strong: 228 228 231;   /* zinc-200 */
+    --color-text-tertiary: 161 161 170;   /* zinc-400 */
+    --color-text-secondary:113 113 122;   /* zinc-500 */
+    --color-text-primary:   24  24  27;   /* zinc-900 */
+    --color-ink:            24  24  27;   /* zinc-900 — buttons, strong accents */
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "cv01", "cv02", "cv03", "cv04", "ss01";
+  }
+
+  body {
+    @apply bg-white text-zinc-900;
+  }
+
+  ::selection {
+    @apply bg-zinc-900 text-white;
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(which node *)",
+      "Read(//Users/pihl/.nvm/versions/**)",
+      "Bash(export PATH=\"$HOME/.nvm/versions/node/$\\(ls ~/.nvm/versions/node)",
+      "Bash(find /Users/pihl -name \"npm\" -type f 2>/dev/null | head -5; find /usr /opt -name \"npm\" -type f 2>/dev/null | head -5)",
+      "Bash(ls /Users/pihl/.nvm/versions/node/ 2>/dev/null && ls /opt/homebrew/bin/node 2>/dev/null && ls ~/.volta/bin/npm 2>/dev/null && ls ~/.fnm/ 2>/dev/null)",
+      "Bash(mdfind -name \"node\" -onlyin /usr/local)",
+      "Bash(mdfind -name \"npm\" -onlyin /Library)",
+      "Bash(xcode-select -p)",
+      "Bash(export PATH=\"/opt/homebrew/bin:/usr/local/bin:$PATH\")",
+      "Bash(npm --version)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(chmod +x /Users/pihl/Documents/johan_test_site/start-dev.sh)",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git config *)"
+    ]
+  }
+}

@@ -1,0 +1,90 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const capabilities = [
+  'UX Research',
+  'Interaction Design',
+  'UI Design',
+  'Prototyping',
+  'Design Systems',
+  'Usability Testing',
+  'Information Architecture',
+  'Figma & FigJam',
+  'Content Strategy',
+  'Workshop Facilitation',
+];
+---
+
+<Base title="About — Your Name" description="Designer, researcher, and problem-solver.">
+  <Nav />
+
+  <main class="flex-1 max-w-screen-xl mx-auto w-full">
+    <section class="px-6 md:px-10 lg:px-16 pt-20 pb-32">
+      <h1 class="text-xs font-medium uppercase tracking-widest text-zinc-400 mb-16">
+        About
+      </h1>
+
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-16 lg:gap-24 max-w-4xl">
+        <!-- Photo placeholder -->
+        <div class="aspect-[3/4] bg-zinc-100 w-full max-w-xs" />
+
+        <!-- Content -->
+        <div>
+          <div class="space-y-5 mb-14">
+            <p class="text-2xl md:text-3xl font-medium tracking-tight text-zinc-900 leading-snug">
+              I design with intention — from the first research session to the final pixel.
+            </p>
+            <p class="text-[15px] text-zinc-500 leading-relaxed">
+              I'm a UX and product designer with X years of experience working across
+              startups and scaling companies. My work spans product strategy, interaction
+              design, and design systems.
+            </p>
+            <p class="text-[15px] text-zinc-500 leading-relaxed">
+              Before going freelance, I worked at [Company] where I led design for [product].
+              I care deeply about systems thinking, inclusive design, and work that's grounded
+              in real user needs.
+            </p>
+            <p class="text-[15px] text-zinc-500 leading-relaxed">
+              When I'm not designing, you'll find me [interest/hobby].
+            </p>
+          </div>
+
+          <!-- Capabilities -->
+          <div class="mb-14">
+            <h2 class="text-xs font-medium uppercase tracking-widest text-zinc-400 mb-6">
+              Capabilities
+            </h2>
+            <ul class="grid grid-cols-2 gap-x-8 gap-y-3">
+              {capabilities.map(cap => (
+                <li class="flex items-center gap-2.5 text-sm text-zinc-600">
+                  <span class="w-1 h-1 rounded-full bg-zinc-300 shrink-0" />
+                  {cap}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- CTA -->
+          <div class="flex items-center gap-6">
+            <a
+              href="mailto:hello@example.com"
+              class="inline-flex items-center gap-2 bg-zinc-900 text-white text-sm font-medium px-6 py-3 hover:bg-zinc-700 transition-colors duration-200"
+            >
+              Get in touch
+            </a>
+            <a
+              href="/cv.pdf"
+              class="text-sm text-zinc-500 hover:text-zinc-900 transition-colors duration-200 border-b border-zinc-200 pb-px"
+            >
+              Download CV
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>

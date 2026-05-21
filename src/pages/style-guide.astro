@@ -1,0 +1,320 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+
+const zincPalette = [
+  { shade: '50',  hex: '#fafafa', text: 'text-zinc-900' },
+  { shade: '100', hex: '#f4f4f5', text: 'text-zinc-900' },
+  { shade: '200', hex: '#e4e4e7', text: 'text-zinc-900' },
+  { shade: '300', hex: '#d4d4d8', text: 'text-zinc-900' },
+  { shade: '400', hex: '#a1a1aa', text: 'text-zinc-900' },
+  { shade: '500', hex: '#71717a', text: 'text-white' },
+  { shade: '600', hex: '#52525b', text: 'text-white' },
+  { shade: '700', hex: '#3f3f46', text: 'text-white' },
+  { shade: '800', hex: '#27272a', text: 'text-white' },
+  { shade: '900', hex: '#18181b', text: 'text-white' },
+  { shade: '950', hex: '#09090b', text: 'text-white' },
+];
+
+const semanticRoles = [
+  { role: 'Background',      token: 'bg-white',      hex: '#ffffff', desc: 'Page & modal backgrounds' },
+  { role: 'Surface',         token: 'bg-zinc-50',    hex: '#fafafa', desc: 'Cards, image placeholders' },
+  { role: 'Border',          token: 'border-zinc-100', hex: '#f4f4f5', desc: 'Dividers, card edges' },
+  { role: 'Border strong',   token: 'border-zinc-200', hex: '#e4e4e7', desc: 'Tags, interactive borders' },
+  { role: 'Text tertiary',   token: 'text-zinc-400', hex: '#a1a1aa', desc: 'Labels, dates, meta' },
+  { role: 'Text secondary',  token: 'text-zinc-500', hex: '#71717a', desc: 'Descriptions, body copy' },
+  { role: 'Text primary',    token: 'text-zinc-900', hex: '#18181b', desc: 'Headings, strong text' },
+  { role: 'Ink',             token: 'bg-zinc-900',   hex: '#18181b', desc: 'Primary buttons, accents' },
+];
+
+const typeScale = [
+  { size: 'text-xs',   px: '12px', label: 'xs',   specimen: 'Labels, tags, microcopy' },
+  { size: 'text-sm',   px: '14px', label: 'sm',   specimen: 'Body, navigation, captions' },
+  { size: 'text-base', px: '16px', label: 'base', specimen: 'Default body text' },
+  { size: 'text-lg',   px: '18px', label: 'lg',   specimen: 'Lead paragraphs, emphasis' },
+  { size: 'text-xl',   px: '20px', label: 'xl',   specimen: 'Subheadings' },
+  { size: 'text-2xl',  px: '24px', label: '2xl',  specimen: 'Section headings' },
+  { size: 'text-3xl',  px: '30px', label: '3xl',  specimen: 'Page headings' },
+  { size: 'text-4xl',  px: '36px', label: '4xl',  specimen: 'Display — medium' },
+  { size: 'text-5xl',  px: '48px', label: '5xl',  specimen: 'Display — large' },
+  { size: 'text-6xl',  px: '60px', label: '6xl',  specimen: 'Hero — desktop' },
+  { size: 'text-7xl',  px: '72px', label: '7xl',  specimen: 'Hero — oversized' },
+];
+
+const spacingScale = [
+  { token: '1',  px: '4px'  },
+  { token: '2',  px: '8px'  },
+  { token: '3',  px: '12px' },
+  { token: '4',  px: '16px' },
+  { token: '6',  px: '24px' },
+  { token: '8',  px: '32px' },
+  { token: '10', px: '40px' },
+  { token: '12', px: '48px' },
+  { token: '16', px: '64px' },
+  { token: '20', px: '80px' },
+  { token: '24', px: '96px' },
+  { token: '32', px: '128px'},
+];
+---
+
+<Base title="Style Guide — Your Name" description="Design system reference for the portfolio.">
+  <Nav />
+
+  <main class="flex-1 max-w-screen-xl mx-auto w-full">
+    <div class="px-6 md:px-10 lg:px-16 pt-20 pb-32 space-y-28">
+
+      <!-- Header -->
+      <div>
+        <p class="text-xs font-medium uppercase tracking-widest text-zinc-400 mb-4">Internal</p>
+        <h1 class="text-4xl md:text-5xl font-medium tracking-tight text-zinc-900 mb-4">Style Guide</h1>
+        <p class="text-zinc-500 text-lg max-w-lg">
+          Living reference for the design language of this portfolio — colors, type, spacing, and components.
+        </p>
+      </div>
+
+      <!-- ─── COLORS ─────────────────────────────────────────────── -->
+      <section>
+        <SectionHeader label="01" title="Colors" />
+
+        <!-- Zinc palette -->
+        <h3 class="text-xs font-medium uppercase tracking-widest text-zinc-400 mb-5">Zinc Palette</h3>
+        <div class="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-11 gap-2 mb-16">
+          {zincPalette.map(({ shade, hex, text }) => (
+            <div>
+              <div
+                class={`h-14 w-full rounded-sm mb-2 flex items-end p-2`}
+                style={`background: ${hex}`}
+              >
+                <span class={`text-[10px] font-mono font-medium ${text} opacity-60`}>{shade}</span>
+              </div>
+              <p class="text-[11px] text-zinc-400 font-mono">{hex}</p>
+            </div>
+          ))}
+        </div>
+
+        <!-- Semantic roles -->
+        <h3 class="text-xs font-medium uppercase tracking-widest text-zinc-400 mb-5">Semantic Roles</h3>
+        <div class="border border-zinc-100 rounded-sm overflow-hidden">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-zinc-100 bg-zinc-50">
+                <th class="text-left px-5 py-3 text-xs font-medium text-zinc-400 uppercase tracking-widest">Role</th>
+                <th class="text-left px-5 py-3 text-xs font-medium text-zinc-400 uppercase tracking-widest">Token</th>
+                <th class="text-left px-5 py-3 text-xs font-medium text-zinc-400 uppercase tracking-widest hidden sm:table-cell">Hex</th>
+                <th class="text-left px-5 py-3 text-xs font-medium text-zinc-400 uppercase tracking-widest hidden md:table-cell">Usage</th>
+                <th class="px-5 py-3 w-12"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {semanticRoles.map(({ role, token, hex, desc }) => (
+                <tr class="border-b border-zinc-100 last:border-0">
+                  <td class="px-5 py-3.5 text-zinc-700 font-medium text-sm">{role}</td>
+                  <td class="px-5 py-3.5">
+                    <code class="text-xs bg-zinc-50 border border-zinc-100 px-2 py-0.5 rounded text-zinc-600 font-mono">{token}</code>
+                  </td>
+                  <td class="px-5 py-3.5 text-zinc-400 font-mono text-xs hidden sm:table-cell">{hex}</td>
+                  <td class="px-5 py-3.5 text-zinc-400 text-sm hidden md:table-cell">{desc}</td>
+                  <td class="px-5 py-3.5">
+                    <div class="w-8 h-8 rounded-sm border border-zinc-100" style={`background: ${hex}`} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ─── TYPOGRAPHY ─────────────────────────────────────────── -->
+      <section>
+        <SectionHeader label="02" title="Typography" />
+
+        <!-- Typeface -->
+        <h3 class="text-xs font-medium uppercase tracking-widest text-zinc-400 mb-6">Typeface</h3>
+        <div class="border border-zinc-100 p-8 mb-16">
+          <p class="text-6xl font-medium tracking-tight text-zinc-900 mb-3">Aa</p>
+          <p class="text-sm text-zinc-400 mb-1">Inter Variable</p>
+          <p class="text-sm text-zinc-400 mb-6">
+            Loaded via <code class="text-xs bg-zinc-50 border border-zinc-100 px-1.5 py-0.5 rounded font-mono">rsms.me/inter/inter.css</code>
+          </p>
+          <p class="text-lg text-zinc-600 tracking-tight leading-relaxed max-w-xl">
+            A B C D E F G H I J K L M N O P Q R S T U V W X Y Z<br />
+            a b c d e f g h i j k l m n o p q r s t u v w x y z<br />
+            0 1 2 3 4 5 6 7 8 9 ! @ # $ % & * ( ) — –
+          </p>
+        </div>
+
+        <!-- Type scale -->
+        <h3 class="text-xs font-medium uppercase tracking-widest text-zinc-400 mb-6">Type Scale</h3>
+        <div class="space-y-0 border border-zinc-100 rounded-sm overflow-hidden">
+          {typeScale.map(({ size, px, label, specimen }) => (
+            <div class="flex items-baseline gap-6 px-6 py-5 border-b border-zinc-100 last:border-0 hover:bg-zinc-50 transition-colors">
+              <div class="w-20 shrink-0">
+                <code class="text-[11px] font-mono text-zinc-400">{label}</code>
+                <p class="text-[10px] text-zinc-300 font-mono mt-0.5">{px}</p>
+              </div>
+              <p class={`${size} font-medium text-zinc-900 tracking-tight leading-none`}>
+                {specimen}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <!-- Weights -->
+        <h3 class="text-xs font-medium uppercase tracking-widest text-zinc-400 mt-14 mb-6">Weights in use</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {[
+            { label: 'font-normal', weight: '400', text: 'Normal — body text and descriptions' },
+            { label: 'font-medium', weight: '500', text: 'Medium — headings and labels' },
+            { label: 'font-semibold', weight: '600', text: 'Semibold — strong emphasis' },
+          ].map(({ label, weight, text }) => (
+            <div class="border border-zinc-100 p-5">
+              <p class="text-xs text-zinc-400 font-mono mb-3">{label} / {weight}</p>
+              <p class={`text-xl text-zinc-900 ${label} tracking-tight`}>{text}</p>
+            </div>
+          ))}
+        </div>
+
+        <!-- Tracking -->
+        <h3 class="text-xs font-medium uppercase tracking-widest text-zinc-400 mt-14 mb-6">Letter Spacing</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {[
+            { label: 'tracking-tight',  value: '-0.025em', text: 'Headings & display' },
+            { label: 'tracking-normal', value: '0em',       text: 'Body & UI text' },
+            { label: 'tracking-widest', value: '0.1em',     text: 'LABELS & EYEBROWS' },
+          ].map(({ label, value, text }) => (
+            <div class="border border-zinc-100 p-5">
+              <p class="text-xs text-zinc-400 font-mono mb-3">{label} / {value}</p>
+              <p class={`text-lg text-zinc-900 font-medium ${label}`}>{text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- ─── SPACING ────────────────────────────────────────────── -->
+      <section>
+        <SectionHeader label="03" title="Spacing & Layout" />
+
+        <!-- Spacing scale -->
+        <h3 class="text-xs font-medium uppercase tracking-widest text-zinc-400 mb-6">Spacing Scale</h3>
+        <div class="space-y-3 mb-16">
+          {spacingScale.map(({ token, px }) => (
+            <div class="flex items-center gap-5">
+              <div class="w-16 shrink-0">
+                <code class="text-xs font-mono text-zinc-400">{token}</code>
+                <p class="text-[10px] text-zinc-300 font-mono">{px}</p>
+              </div>
+              <div class="bg-zinc-900 h-3 rounded-sm" style={`width: ${px}`} />
+            </div>
+          ))}
+        </div>
+
+        <!-- Layout / grid -->
+        <h3 class="text-xs font-medium uppercase tracking-widest text-zinc-400 mb-6">Page Layout</h3>
+        <div class="border border-zinc-100 p-6 space-y-4 text-sm text-zinc-500">
+          <div class="flex flex-wrap gap-x-10 gap-y-3">
+            <div><span class="text-zinc-400 font-mono text-xs">max-width</span><p class="text-zinc-700 font-medium">screen-xl (1280px)</p></div>
+            <div><span class="text-zinc-400 font-mono text-xs">horizontal padding</span><p class="text-zinc-700 font-medium">px-6 → md:px-10 → lg:px-16</p></div>
+            <div><span class="text-zinc-400 font-mono text-xs">project grid</span><p class="text-zinc-700 font-medium">1 col → md: 2 col, gap-x-10 gap-y-16</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── COMPONENTS ─────────────────────────────────────────── -->
+      <section>
+        <SectionHeader label="04" title="Components" />
+
+        <!-- Buttons -->
+        <h3 class="text-xs font-medium uppercase tracking-widest text-zinc-400 mb-6">Buttons</h3>
+        <div class="flex flex-wrap items-center gap-4 p-8 border border-zinc-100 mb-10">
+          <button class="inline-flex items-center gap-2 bg-zinc-900 text-white text-sm font-medium px-6 py-3 hover:bg-zinc-700 transition-colors duration-200">
+            Primary button
+          </button>
+          <button class="inline-flex items-center gap-2 border border-zinc-900 text-zinc-900 text-sm font-medium px-6 py-3 hover:bg-zinc-50 transition-colors duration-200">
+            Secondary button
+          </button>
+          <button class="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-900 border-b border-zinc-200 pb-px transition-colors duration-200">
+            Text link
+          </button>
+          <a href="#" class="text-sm text-zinc-400 hover:text-zinc-900 transition-colors duration-200">
+            Navigation link
+          </a>
+        </div>
+
+        <!-- Tags -->
+        <h3 class="text-xs font-medium uppercase tracking-widest text-zinc-400 mb-6">Tags & Badges</h3>
+        <div class="flex flex-wrap gap-2 p-8 border border-zinc-100 mb-10">
+          {['UX Research', 'UI Design', 'Prototyping', 'Design Systems', 'Mobile', 'A/B Testing'].map(tag => (
+            <span class="text-[11px] font-medium text-zinc-400 border border-zinc-200 px-2 py-0.5 rounded-full tracking-wide">
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        <!-- Project card -->
+        <h3 class="text-xs font-medium uppercase tracking-widest text-zinc-400 mb-6">Project Card</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 p-8 border border-zinc-100 mb-10">
+          <!-- With image placeholder -->
+          <div class="group block cursor-pointer">
+            <div class="relative overflow-hidden bg-zinc-100 aspect-[4/3] mb-5 flex items-center justify-center">
+              <span class="text-zinc-300 text-xs tracking-widest uppercase">Cover image</span>
+              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300" />
+            </div>
+            <div class="space-y-2">
+              <div class="flex items-start justify-between gap-4">
+                <h3 class="text-[15px] font-medium text-zinc-900 group-hover:text-zinc-500 transition-colors leading-snug">
+                  Project Title
+                </h3>
+                <span class="text-sm text-zinc-400 shrink-0 tabular-nums">2024</span>
+              </div>
+              <p class="text-sm text-zinc-500 leading-relaxed">Brief project description explaining what was done and the outcome.</p>
+              <div class="flex flex-wrap gap-1.5 pt-0.5">
+                <span class="text-[11px] font-medium text-zinc-400 border border-zinc-200 px-2 py-0.5 rounded-full tracking-wide">UX Design</span>
+                <span class="text-[11px] font-medium text-zinc-400 border border-zinc-200 px-2 py-0.5 rounded-full tracking-wide">Prototyping</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Without image -->
+          <div class="group block cursor-pointer">
+            <div class="relative overflow-hidden bg-zinc-50 aspect-[4/3] mb-5 flex items-center justify-center border border-dashed border-zinc-200">
+              <span class="text-zinc-300 text-xs tracking-widest uppercase">No image</span>
+            </div>
+            <div class="space-y-2">
+              <h3 class="text-[15px] font-medium text-zinc-900 group-hover:text-zinc-500 transition-colors leading-snug">
+                Card without image
+              </h3>
+              <p class="text-sm text-zinc-500 leading-relaxed">Fallback state when no cover image is provided.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form elements -->
+        <h3 class="text-xs font-medium uppercase tracking-widest text-zinc-400 mb-6">Form Elements</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 p-8 border border-zinc-100">
+          <div>
+            <label class="block text-xs font-medium uppercase tracking-widest text-zinc-400 mb-2">Text input</label>
+            <input
+              type="text"
+              placeholder="e.g. hello@example.com"
+              class="w-full border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-300 focus:outline-none focus:border-zinc-900 transition-colors duration-200"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-medium uppercase tracking-widest text-zinc-400 mb-2">Textarea</label>
+            <textarea
+              rows="3"
+              placeholder="Your message…"
+              class="w-full border border-zinc-200 px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-300 focus:outline-none focus:border-zinc-900 transition-colors duration-200 resize-none"
+            />
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <Footer />
+</Base>
+
