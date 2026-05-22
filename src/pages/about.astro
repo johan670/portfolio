@@ -1,5 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const allWork = await getCollection('work');
+const workLinks = allWork
+  .sort((a, b) => a.data.order - b.data.order)
+  .map(p => ({ href: `/work/${p.slug}`, label: p.data.title }));
 
 const sections = [
   { id: 'profile',  label: 'Profile'  },
@@ -60,88 +66,91 @@ const services = [
   },
 ];
 
-const contactCards = [
-  {
-    title: 'Get in touch',
-    body:  'Available for new projects and collaborations. Reach out directly to discuss your needs.',
-    link:  { href: 'mailto:johan@surpriseventures.io', label: 'Email →' },
-  },
-  {
-    title: 'Availability',
-    body:  'Currently available for freelance projects and selected full-time roles. Based in Stockholm, SE.',
-    link:  null as { href: string; label: string } | null,
-  },
-  {
-    title: 'Follow',
-    body:  'See work in progress, case studies, and design thinking on LinkedIn and Dribbble.',
-    link:  { href: 'https://linkedin.com/in/johanpihl', label: 'LinkedIn →' },
-  },
-];
+const year = new Date().getFullYear();
 ---
 
 <Base title="About — Johan Pihl" description="UX & product designer. Research to shipped product.">
 
-  <!-- Mobile nav bar (shown when sidebar is hidden) -->
-  <header class="lg:hidden sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-zinc-200">
+  <!-- Mobile nav bar -->
+  <header class="lg:hidden sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-zinc-100">
     <nav class="flex items-center justify-between px-6 py-4">
       <a href="/" class="text-sm font-medium text-zinc-900">Johan Pihl</a>
       <div class="flex items-center gap-6">
-        <a href="/work"  class="text-sm text-zinc-400 hover:text-zinc-900 transition-colors duration-200">Work</a>
-        <a href="/about" class="text-sm text-zinc-900 font-medium">About</a>
+        <a href="/work"  class="text-xs text-zinc-400 hover:text-zinc-900 transition-colors duration-200">Work</a>
+        <a href="/about" class="text-xs text-zinc-900 font-medium">About</a>
       </div>
     </nav>
   </header>
 
-  <!-- Page shell: sidebar + content -->
   <div class="flex flex-1">
 
-    <!-- ─────────── SIDEBAR ─────────── -->
+    <!-- ═══════════════════════════════════
+         SIDEBAR
+    ════════════════════════════════════ -->
     <aside class="hidden lg:flex flex-col w-52 xl:w-60 shrink-0 border-r border-zinc-100 sticky top-0 h-screen overflow-y-auto py-9 px-8">
 
       <!-- Wordmark -->
-      <a href="/" class="text-sm font-medium text-zinc-900 hover:text-zinc-400 transition-colors duration-200 mb-10 block">
+      <a href="/"
+         class="text-sm font-medium text-zinc-900 hover:text-zinc-400 transition-colors duration-200 mb-10 block">
         Johan Pihl
       </a>
 
-      <!-- Site nav -->
-      <nav class="space-y-2.5 mb-10">
-        <a href="/work"
-           class="block text-xs text-zinc-400 hover:text-zinc-900 transition-colors duration-200">
-          Work
-        </a>
-        <a href="/about"
-           class="block text-xs text-zinc-900 font-medium">
-          About
-        </a>
-      </nav>
+      <!-- ###### work -->
+      <div class="mb-8">
+        <p class="text-[10px] uppercase tracking-widest text-zinc-300 mb-3">Work</p>
+        <nav class="space-y-2">
+          {workLinks.map(l => (
+            <a href={l.href}
+               class="block text-xs text-zinc-400 hover:text-zinc-900 transition-colors duration-200 leading-snug">
+              {l.label}
+            </a>
+          ))}
+        </nav>
+      </div>
 
-      <!-- Section anchors -->
+      <!-- ###### site -->
       <div class="mb-auto">
-        <p class="text-[10px] uppercase tracking-widest text-zinc-300 mb-3">Sections</p>
-        <nav class="space-y-2.5">
+        <p class="text-[10px] uppercase tracking-widest text-zinc-300 mb-3">Site</p>
+        <nav class="space-y-2">
+          <a href="/"      class="block text-xs text-zinc-400 hover:text-zinc-900 transition-colors duration-200">Home</a>
+          <a href="/work"  class="block text-xs text-zinc-400 hover:text-zinc-900 transition-colors duration-200">Work</a>
+          <a href="/about" class="block text-xs text-zinc-900 font-medium">About</a>
           {sections.map(s => (
             <a href={`#${s.id}`}
-               class="block text-xs text-zinc-400 hover:text-zinc-900 transition-colors duration-200">
+               class="block text-xs text-zinc-400 hover:text-zinc-900 transition-colors duration-200 pl-2">
               — {s.label}
             </a>
           ))}
         </nav>
       </div>
 
-      <!-- Socials -->
-      <div class="space-y-2 mt-8">
-        <a href="https://linkedin.com/in/johanpihl" target="_blank" rel="noopener noreferrer"
+      <!-- ###### follow -->
+      <div class="mt-8 mb-6">
+        <p class="text-[10px] uppercase tracking-widest text-zinc-300 mb-3">Follow</p>
+        <nav class="space-y-2">
+          <a href="https://linkedin.com/in/johanpihl" target="_blank" rel="noopener noreferrer"
+             class="block text-xs text-zinc-400 hover:text-zinc-900 transition-colors duration-200">LinkedIn</a>
+          <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer"
+             class="block text-xs text-zinc-400 hover:text-zinc-900 transition-colors duration-200">Dribbble</a>
+        </nav>
+      </div>
+
+      <!-- Bottom standalone links (Newsletter / CV style) -->
+      <div class="border-t border-zinc-100 pt-5 space-y-2">
+        <a href="mailto:johan@surpriseventures.io"
            class="block text-xs text-zinc-400 hover:text-zinc-900 transition-colors duration-200">
-          LinkedIn
+          Contact
         </a>
-        <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer"
+        <a href="/cv.pdf"
            class="block text-xs text-zinc-400 hover:text-zinc-900 transition-colors duration-200">
-          Dribbble
+          CV / Résumé
         </a>
       </div>
     </aside>
 
-    <!-- ─────────── MAIN CONTENT ─────────── -->
+    <!-- ═══════════════════════════════════
+         MAIN CONTENT
+    ════════════════════════════════════ -->
     <main class="flex-1 min-w-0">
 
       <!-- Intro tagline -->
@@ -153,14 +162,12 @@ const contactCards = [
         </p>
       </div>
 
-      <!-- ══════════ PROFILE ══════════ -->
+      <!-- ── PROFILE ── -->
       <section id="profile" class="px-10 lg:px-16 py-16 border-b border-zinc-100">
         <h2 class="text-[10px] uppercase tracking-widest text-zinc-400 mb-14">Profile</h2>
 
-        <!-- Illustration + list / Portrait -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-14">
           <div>
-            <!-- Small illustration placeholder -->
             <div class="w-20 h-20 bg-zinc-100 mb-8" />
             <h6 class="text-[10px] uppercase tracking-widest text-zinc-400 mb-5">What I do</h6>
             <ul class="space-y-3">
@@ -169,14 +176,11 @@ const contactCards = [
               ))}
             </ul>
           </div>
-          <!-- Portrait placeholder -->
           <div class="aspect-[3/4] bg-zinc-100 w-full" />
         </div>
 
-        <!-- Large profile image -->
         <div class="aspect-[16/7] bg-zinc-100 w-full mb-14" />
 
-        <!-- Body copy -->
         <div class="max-w-2xl space-y-5 mb-12">
           <p class="text-sm text-zinc-600 leading-relaxed">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
@@ -190,7 +194,6 @@ const contactCards = [
           </p>
         </div>
 
-        <!-- Availability line -->
         <div class="text-xs text-zinc-400 space-y-1.5">
           <p>Available Mon–Fri, Stockholm SE</p>
           <p>
@@ -202,15 +205,13 @@ const contactCards = [
         </div>
       </section>
 
-      <!-- ══════════ APPROACH ══════════ -->
+      <!-- ── APPROACH ── -->
       <section id="approach" class="px-10 lg:px-16 py-16 border-b border-zinc-100">
         <h2 class="text-[10px] uppercase tracking-widest text-zinc-400 mb-14">Approach</h2>
 
-        <!-- Large landscape image -->
         <div class="aspect-[16/9] bg-zinc-100 w-full mb-14" />
 
-        <!-- Body text + social follow -->
-        <p class="text-sm text-zinc-600 leading-relaxed max-w-2xl mb-4">
+        <p class="text-sm text-zinc-600 leading-relaxed max-w-2xl mb-2">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
           incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
           exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -223,7 +224,6 @@ const contactCards = [
              class="underline underline-offset-2 hover:text-zinc-900 transition-colors duration-200">Dribbble</a>.
         </p>
 
-        <!-- Two illustration cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-14">
           {approachCards.map(card => (
             <div>
@@ -234,16 +234,15 @@ const contactCards = [
           ))}
         </div>
 
-        <!-- Second large image -->
         <div class="aspect-[16/9] bg-zinc-100 w-full" />
       </section>
 
-      <!-- ══════════ CLIENTS ══════════ -->
+      <!-- ── CLIENTS ── -->
       <section id="clients" class="px-10 lg:px-16 py-16 border-b border-zinc-100">
         <h2 class="text-[10px] uppercase tracking-widest text-zinc-400 mb-6">Clients</h2>
         <p class="text-sm text-zinc-500 leading-relaxed max-w-2xl mb-14">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+          incididunt ut labore et dolore magna aliqua.
         </p>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -268,10 +267,10 @@ const contactCards = [
         </div>
       </section>
 
-      <!-- ══════════ SERVICES ══════════ -->
+      <!-- ── SERVICES ── -->
       <section id="services" class="px-10 lg:px-16 py-16 border-b border-zinc-100">
         <h2 class="text-[10px] uppercase tracking-widest text-zinc-400 mb-6">Services</h2>
-        <p class="text-sm text-zinc-500 leading-relaxed max-w-2xl mb-4">
+        <p class="text-sm text-zinc-500 leading-relaxed max-w-2xl mb-2">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
           incididunt ut labore et dolore magna aliqua.
         </p>
@@ -285,7 +284,6 @@ const contactCards = [
         <div>
           {services.map(s => (
             <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-10 py-12 border-t border-zinc-100">
-              <!-- Image placeholder with carousel indicator (static) -->
               <div>
                 <div class="aspect-[4/3] bg-zinc-100 mb-3" />
                 <p class="text-[10px] text-zinc-300">1/3</p>
@@ -299,12 +297,28 @@ const contactCards = [
         </div>
       </section>
 
-      <!-- ══════════ CONTACT ══════════ -->
+      <!-- ── CONTACT ── -->
       <section id="contact" class="px-10 lg:px-16 py-16 border-b border-zinc-100">
         <h2 class="text-[10px] uppercase tracking-widest text-zinc-400 mb-14">Contact</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {contactCards.map(card => (
+          {[
+            {
+              title: 'Get in touch',
+              body:  'Available for new projects and collaborations. Reach out directly to discuss your needs.',
+              link:  { href: 'mailto:johan@surpriseventures.io', label: 'Email →' },
+            },
+            {
+              title: 'Availability',
+              body:  'Currently available for freelance projects and selected full-time roles. Based in Stockholm, SE.',
+              link:  null as { href: string; label: string } | null,
+            },
+            {
+              title: 'Follow',
+              body:  'See work in progress, case studies, and design thinking on LinkedIn and Dribbble.',
+              link:  { href: 'https://linkedin.com/in/johanpihl', label: 'LinkedIn →' },
+            },
+          ].map(card => (
             <div>
               <div class="w-16 h-16 bg-zinc-100 mb-5" />
               <h6 class="text-[10px] uppercase tracking-widest text-zinc-400 mb-3">{card.title}</h6>
@@ -320,10 +334,87 @@ const contactCards = [
         </div>
       </section>
 
-      <!-- Page footer -->
-      <div class="px-10 lg:px-16 py-8">
-        <p class="text-xs text-zinc-400">© {new Date().getFullYear()} Johan Pihl</p>
-      </div>
+      <!-- ═══════════════════════════════════
+           FOOTER — multi-column nav grid
+           (mirrors Displaay's bottom nav)
+      ════════════════════════════════════ -->
+      <footer class="px-10 lg:px-16 pt-16 pb-10 border-t border-zinc-100">
+
+        <!-- Top grid: work / about / site / follow -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mb-14">
+
+          <!-- work -->
+          <div>
+            <p class="text-[10px] uppercase tracking-widest text-zinc-300 mb-4">Work</p>
+            <nav class="space-y-2.5">
+              {workLinks.map(l => (
+                <a href={l.href}
+                   class="block text-xs text-zinc-500 hover:text-zinc-900 transition-colors duration-200 leading-snug">
+                  {l.label}
+                </a>
+              ))}
+              <a href="/work"
+                 class="block text-xs text-zinc-400 hover:text-zinc-900 transition-colors duration-200">
+                All work →
+              </a>
+            </nav>
+          </div>
+
+          <!-- about -->
+          <div>
+            <p class="text-[10px] uppercase tracking-widest text-zinc-300 mb-4">About</p>
+            <nav class="space-y-2.5">
+              {sections.map(s => (
+                <a href={`#${s.id}`}
+                   class="block text-xs text-zinc-500 hover:text-zinc-900 transition-colors duration-200">
+                  {s.label}
+                </a>
+              ))}
+            </nav>
+          </div>
+
+          <!-- site -->
+          <div>
+            <p class="text-[10px] uppercase tracking-widest text-zinc-300 mb-4">Site</p>
+            <nav class="space-y-2.5">
+              <a href="/"      class="block text-xs text-zinc-500 hover:text-zinc-900 transition-colors duration-200">Home</a>
+              <a href="/work"  class="block text-xs text-zinc-500 hover:text-zinc-900 transition-colors duration-200">Work</a>
+              <a href="/about" class="block text-xs text-zinc-500 hover:text-zinc-900 transition-colors duration-200">About</a>
+              <a href="mailto:johan@surpriseventures.io"
+                 class="block text-xs text-zinc-500 hover:text-zinc-900 transition-colors duration-200">Contact</a>
+            </nav>
+          </div>
+
+          <!-- follow -->
+          <div>
+            <p class="text-[10px] uppercase tracking-widest text-zinc-300 mb-4">Follow us</p>
+            <nav class="space-y-2.5">
+              <a href="https://linkedin.com/in/johanpihl" target="_blank" rel="noopener noreferrer"
+                 class="block text-xs text-zinc-500 hover:text-zinc-900 transition-colors duration-200">LinkedIn</a>
+              <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer"
+                 class="block text-xs text-zinc-500 hover:text-zinc-900 transition-colors duration-200">Dribbble</a>
+            </nav>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <hr class="border-zinc-100 mb-6" />
+
+        <!-- Bottom bar: standalone links + copyright -->
+        <div class="flex items-center justify-between">
+          <p class="text-xs text-zinc-400">© {year} Johan Pihl</p>
+          <div class="flex items-center gap-6">
+            <a href="mailto:johan@surpriseventures.io"
+               class="text-xs text-zinc-400 hover:text-zinc-900 transition-colors duration-200">
+              Newsletter
+            </a>
+            <a href="/cv.pdf"
+               class="text-xs text-zinc-400 hover:text-zinc-900 transition-colors duration-200">
+              CV / Résumé
+            </a>
+          </div>
+        </div>
+      </footer>
 
     </main>
   </div>
